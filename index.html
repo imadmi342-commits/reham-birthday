@@ -1,124 +1,633 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Reham - كتاب التهنئة الأسطوري</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@400;600;700;900&family=Reem+Kufi:wght@600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-<title>About Reham ❤️</title>
+        body {
+            background: linear-gradient(rgba(10, 15, 26, 0.88), rgba(10, 15, 26, 0.92)), 
+                        url('https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat fixed;
+            font-family: 'Amiri', serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            color: #2c2c2c;
+            padding: 20px 10px;
+        }
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+        /* ----- Spotify Player Top Bar ----- */
+        .music-player {
+            position: fixed;
+            top: 15px;
+            z-index: 1000;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(74, 144, 226, 0.4);
+            border-radius: 40px;
+            padding: 10px 24px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 15px rgba(74, 144, 226, 0.2);
+            max-width: 92%;
+            color: #e0e6ed;
+        }
 
-<style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
+        .music-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'Cairo', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
 
-body{
-  min-height:100vh;
-  font-family:"Cairo",sans-serif;
-  color:#fff;
-  overflow-x:hidden;
-  background:
-    linear-gradient(rgba(10,5,12,.72),rgba(10,5,12,.90)),
-    url("./1000150926.jpg") center/cover fixed;
-}
+        .music-info i {
+            color: #4a90e2;
+            font-size: 1.3rem;
+            animation: spin 4s linear infinite;
+        }
 
-body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  background:
-    radial-gradient(circle at 20% 20%,rgba(255,120,160,.15),transparent 30%),
-    radial-gradient(circle at 80% 70%,rgba(180,80,160,.12),transparent 30%);
-  pointer-events:none;
-  z-index:-1;
-}
+        .music-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
 
-.container{
-  width:min(1000px,92%);
-  margin:auto;
-  padding:25px 0 60px;
-}
+        .music-btn {
+            background: rgba(74, 144, 226, 0.15);
+            border: 1px solid rgba(74, 144, 226, 0.4);
+            color: #4a90e2;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
 
-header{
-  text-align:center;
-  padding:30px 10px;
-}
+        .music-btn:hover {
+            background: #4a90e2;
+            color: #fff;
+            transform: scale(1.1);
+            box-shadow: 0 0 10px rgba(74, 144, 226, 0.5);
+        }
 
-.heart{
-  font-size:48px;
-  animation:pulse 1.8s infinite;
-}
+        select.song-select {
+            background: #0f172a;
+            color: #d1d8e0;
+            border: 1px solid #4a90e2;
+            border-radius: 20px;
+            padding: 6px 14px;
+            font-family: 'Cairo', sans-serif;
+            font-size: 0.85rem;
+            outline: none;
+            cursor: pointer;
+        }
 
-@keyframes pulse{
-  50%{transform:scale(1.15)}
-}
+        @keyframes spin { 100% { transform: rotate(360deg); } }
 
-h1{
-  font-family:"Amiri",serif;
-  font-size:clamp(40px,9vw,72px);
-  margin:8px 0;
-}
+        /* ----- Book Wrapper ----- */
+        .book-wrapper {
+            perspective: 2500px;
+            width: 100%;
+            max-width: 960px;
+            height: 620px;
+            margin-top: 55px;
+            position: relative;
+        }
 
-.subtitle{
-  color:#e8cbd5;
-}
+        .book {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.8s ease;
+        }
 
-.book{
-  width:min(850px,100%);
-  margin:auto;
-  perspective:1800px;
-}
+        /* Page Structure */
+        .page {
+            position: absolute;
+            width: 50%;
+            height: 100%;
+            top: 0;
+            right: 0;
+            transform-origin: left center;
+            transform-style: preserve-3d;
+            transition: transform 1.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+            cursor: pointer;
+        }
 
-.page{
-  display:none;
-  min-height:570px;
-  padding:45px;
-  border-radius:22px;
-  background:rgba(25,15,24,.88);
-  border:1px solid rgba(255,255,255,.15);
-  box-shadow:0 25px 80px rgba(0,0,0,.55);
-  backdrop-filter:blur(15px);
-  animation:appear .5s ease;
-}
+        .front, .back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            backface-visibility: hidden;
+            box-shadow: inset 0 0 40px rgba(0,0,0,0.12), 0 10px 25px rgba(0, 0, 0, 0.5);
+            padding: 35px 30px;
+            border-radius: 6px 0 0 6px;
+            background: #fdfbf7;
+            border: 1px solid #d4ceb8;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+            overflow-y: auto;
+        }
 
-.page.active{
-  display:block;
-}
+        .back {
+            transform: rotateY(180deg);
+            border-radius: 0 6px 6px 0;
+        }
 
-@keyframes appear{
-  from{
-    opacity:0;
-    transform:rotateY(-8deg) translateY(10px);
-  }
-  to{
-    opacity:1;
-    transform:rotateY(0) translateY(0);
-  }
-}
+        .ornament {
+            color: #3b82f6;
+            font-size: 1.3rem;
+            margin: 4px 0;
+            opacity: 0.85;
+            letter-spacing: 4px;
+        }
 
-.page-number{
-  color:#dca8ba;
-  margin-bottom:12px;
-  font-size:14px;
-}
+        /* Cover Styling */
+        .cover-page {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            color: #e2e8f0;
+            border: 6px double #3b82f6;
+            box-shadow: inset 0 0 50px rgba(59, 130, 246, 0.2), 0 15px 35px rgba(0,0,0,0.7);
+        }
 
-.page h2{
-  font-family:"Amiri",serif;
-  font-size:40px;
-  color:#f5d7e0;
-  margin-bottom:20px;
-}
+        .cover-page h1 {
+            font-family: 'Reem Kufi', sans-serif;
+            font-size: 2.8rem;
+            color: #f8fafc;
+            text-shadow: 0 0 15px rgba(59, 130, 246, 0.6);
+            margin-top: 20px;
+        }
 
-.page p{
-  line-height:2.1;
-  color:#eee;
-  font-size:17px;
-}
+        h2.page-title {
+            font-family: 'Reem Kufi', sans-serif;
+            color: #1e293b;
+            border-bottom: 2px solid #3b82f6;
+            padding-bottom: 6px;
+            margin-bottom: 12px;
+            font-size: 1.65rem;
+            width: 100%;
+        }
 
-.quote{
-  margin:25
+        .btn-custom {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            color: #f8fafc;
+            border: 1px solid #3b82f6;
+            padding: 10px 24px;
+            font-size: 0.95rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin: 8px 4px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-custom:hover {
+            background: #3b82f6;
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(59, 130, 246, 0.4);
+        }
+
+        #btn-no {
+            position: absolute;
+            transition: 0.15s ease-out;
+            background: #991b1b;
+            border-color: #f87171;
+        }
+
+        .poem-container {
+            display: none;
+            background: rgba(241, 245, 249, 0.95);
+            border-right: 4px solid #3b82f6;
+            padding: 16px;
+            border-radius: 10px;
+            text-align: right;
+            font-size: 1.05rem;
+            line-height: 2;
+            color: #0f172a;
+            max-height: 230px;
+            overflow-y: auto;
+            margin: 10px 0;
+            width: 100%;
+            box-shadow: inset 0 0 8px rgba(0,0,0,0.06);
+        }
+
+        .achievement-img {
+            max-width: 88%;
+            max-height: 200px;
+            border-radius: 10px;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+            border: 3px solid #fff;
+            object-fit: cover;
+            margin-bottom: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .achievement-img:hover {
+            transform: scale(1.02);
+        }
+
+        .text-body {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #334155;
+            text-align: justify;
+        }
+
+        .messages-section {
+            width: 100%;
+            text-align: center;
+        }
+
+        .msg-input {
+            width: 95%;
+            padding: 10px 14px;
+            margin: 6px 0;
+            border: 1px solid #3b82f6;
+            border-radius: 10px;
+            font-family: 'Cairo', sans-serif;
+            outline: none;
+            background: #f8fafc;
+        }
+
+        .voice-controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 6px 0;
+        }
+
+        .msg-list {
+            max-height: 130px;
+            overflow-y: auto;
+            text-align: right;
+            background: #ffffff;
+            border: 1px dashed #3b82f6;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+
+        .msg-item {
+            padding: 6px;
+            border-bottom: 1px solid #f1f5f9;
+            color: #1e293b;
+        }
+
+        .flipped {
+            transform: rotateY(-180deg);
+        }
+
+        #p1 { z-index: 4; }
+        #p2 { z-index: 3; }
+        #p3 { z-index: 2; }
+
+        .controls-bar {
+            margin-top: 25px;
+            display: flex;
+            gap: 15px;
+            z-index: 100;
+        }
+
+        @media (max-width: 768px) {
+            .book-wrapper {
+                height: 520px;
+            }
+            .front, .back {
+                padding: 20px 14px;
+            }
+            h2.page-title {
+                font-size: 1.3rem;
+            }
+            .text-body {
+                font-size: 0.88rem;
+                line-height: 1.65;
+            }
+            .achievement-img {
+                max-height: 140px;
+            }
+            .music-player {
+                top: 8px;
+                padding: 6px 14px;
+            }
+            .cover-page h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 🎵 Spotify Player Top Bar -->
+    <div class="music-player">
+        <div class="music-info">
+            <i class="fa-solid fa-compact-disc" id="disc-icon"></i>
+            <span id="song-title">عزف عود هادئ</span>
+        </div>
+        <div class="music-controls">
+            <button class="music-btn" onclick="togglePlay()"><i class="fa-solid fa-play" id="play-btn"></i></button>
+            <select class="song-select" id="song-select" onchange="changeSong()">
+                <option value="path">عزف عود هادئ (عربي)</option>
+                <option value="give_me">Give Me a Sign</option>
+                <option value="russian">Катюша - Katyusha (روسية)</option>
+                <option value="italian">Bella Ciao (إيطالية)</option>
+                <option value="arabic_classic">موسيقى هادئة (كلاسيك)</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Hidden Audio Player -->
+    <audio id="audio-player" loop>
+        <source id="audio-source" src="https://upload.wikimedia.org/wikipedia/commons/e/eb/Arabic_Oud_Music_Sample.ogg" type="audio/ogg">
+    </audio>
+
+    <!-- 📖 Interactive 3D Book -->
+    <div class="book-wrapper">
+        <div class="book">
+
+            <!-- PAGE 1: Cover & Good Morning Princess -->
+            <div class="page" id="p1" onclick="pageClick(1, event)">
+                <div class="front cover-page">
+                    <div class="ornament"><i class="fa-solid fa-feather-pointed"></i></div>
+                    <h1>About Reham</h1>
+                    <div class="ornament" style="margin-top: 15px;"><i class="fa-solid fa-book-bookmark"></i></div>
+                    <p style="color: #94a3b8; font-family: 'Cairo'; margin-top: 25px; font-size: 0.95rem;">انقر على غلاف الكتاب لفتحه ✨</p>
+                </div>
+                <div class="back">
+                    <div class="ornament">🪶 ✦ 🪶</div>
+                    <h2 class="page-title">Good morning princess</h2>
+                    <p style="font-family: 'Cairo'; color: #2563eb; font-size: 0.95rem; margin-bottom: 8px; font-weight: 600;">
+                        I couldn’t find the right words to describe you…<br>so I let the poetry speak for me
+                    </p>
+
+                    <button class="btn-custom" onclick="togglePoem(event)"><i class="fa-solid fa-wand-magic-sparkles"></i> مفاجأة</button>
+
+                    <div class="poem-container" id="poem-box">
+                        لما تبدّى الصبحُ من خلفِ غيمِهِ<br>
+                        وألقى على وجهِ المدى ثوبَ ضوئهِ،<br><br>
+                        رأيتُ وجهًا لا يُشابهُ صبحَهُ،<br>
+                        فالشمسُ تمضي، وهو يبقى سَناهُ.<br><br>
+                        في مقلتيها للنهارِ مهابةٌ،<br>
+                        وفي سكونِ الطرفِ ليلٌ مُصفَّى.<br><br>
+                        إذا أقبلتْ، خُيّلَ للعينِ أنَّها<br>
+                        شمسٌ أتتْ من أفقِها متهادية،<br><br>
+                        وإذا أطرقتْ، رأيتُ في أجفانِها<br>
+                        بدرًا يخبّئ نورَهُ في غيمةٍ وادعة.<br><br>
+                        لا الشمسُ تُدركُ بعضَ ما في وجهِها،<br>
+                        ولا الهلالُ إذا استدارَ يُشابهُهُ.<br><br>
+                        فيها من الضحى كبرياؤهُ،<br>
+                        ومن البدرِ ذلك الهدوءُ الذي<br>
+                        يجعلُ الليلَ جميلًا دونَ أن يتكلّم.<br><br>
+                        وحينَ مرّتْ، لم أقلْ شيئًا؛<br>
+                        فالبيانُ أحيانًا<br>
+                        أن تتركَ للجمالِ<br>
+                        بقيّةَ الكلام.
+                    </div>
+
+                    <div style="position: relative; width: 100%; min-height: 55px; margin-top: 10px;">
+                        <button class="btn-custom" onclick="nextPage(event)">Let's make your day</button>
+                        <button class="btn-custom" id="btn-no" onmouseover="moveNoBtn()" onclick="moveNoBtn()">No</button>
+                    </div>
+                    <div class="ornament">🪶 ✦ 🪶</div>
+                </div>
+            </div>
+
+            <!-- PAGE 2: Achievements (Lathmon Novel + Teacher) -->
+            <div class="page" id="p2" onclick="pageClick(2, event)">
+                <div class="front">
+                    <div class="ornament">📘 ✒️ 📘</div>
+                    <h2 class="page-title">Achievements</h2>
+                    
+                    <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=600&q=80" alt="رواية لأثمون" class="achievement-img">
+
+                    <p class="text-body" style="font-size: 0.85rem;">
+                        إلى رحمة رماش، صاحبة القلم الذي لا يكتب الحكايات فحسب، بل يمنحها روحًا تُرى بين السطور… ✒️<br><br>
+                        مبارك لكِ «لأثمون»؛ هذا الأثر الذي خرج من بين أناملكِ ليجد له مكانًا في قلوب القرّاء.<br>
+                        ليس كل من أمسك القلم كاتبًا، فبعض الأقلام تترك حبرًا على الورق، وبعضها يترك أثرًا في الذاكرة… وقلمكِ من النوع الذي لا يُقرأ ثم يُنسى.<br><br>
+                        في «لأثمون» صنعتِ عالمًا له ملامحه، وشخصياتٍ لها نبضها، وكلماتٍ تجعل القارئ يمضي بين الصفحات وكأنه يعبر عتبةً إلى عالمٍ آخر.<br><br>
+                        فليكن هذا العمل بدايةً لاختباراتٍ أجمل، وحكاياتٍ أعمق، وصفحاتٍ كثيرة لم تُكتب بعد.<br>
+                        مبارك لكِ هذا الإنجاز، ومبارك لنا نحن القرّاء أن وُجد قلمٌ مثلكِ ليمنحنا شيئًا من ذلك العالم. 🤍📖
+                    </p>
+                    <div class="ornament">🖋️</div>
+                </div>
+                <div class="back">
+                    <div class="ornament">🎓 ✦ 🎓</div>
+                    <h2 class="page-title">Achievements</h2>
+                    
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80" alt="الأستاذة رماش رحمة" class="achievement-img">
+
+                    <p class="text-body" style="text-align: center; font-size: 1.05rem; margin-top: 15px; color: #0f172a; font-weight: bold;">
+                        «بعض الأساتذة يعلّموننا الدروس، وبعضهم يعلّموننا كيف نترك أثرًا في الحياة؛ وأنتِ من أولئك الذين لا يُنسون.»
+                    </p>
+
+                    <button class="btn-custom" onclick="nextPage(event)" style="margin-top: 15px;">التالي 📖</button>
+                    <div class="ornament">🎓</div>
+                </div>
+            </div>
+
+            <!-- PAGE 3: Today is your birthday & Wishes -->
+            <div class="page" id="p3" onclick="pageClick(3, event)">
+                <div class="front">
+                    <div class="ornament">🎉 🎂 🎉</div>
+                    <h2 class="page-title">Today is your birthday</h2>
+
+                    <p class="text-body" style="font-size: 1.05rem; line-height: 2;">
+                        إلى رحمة… 🤍<br><br>
+                        يا من تُرهق نفسها أكثر مما ينبغي، وتمشي بقلبٍ رهوف لا يعرف إلا الرحمة، وتجد بين صفحات الكتب عالمها الذي يشبهها…<br><br>
+                        في يوم ميلادكِ، أتمنى أن يكون عامكِ القادم فصلًا أجمل من كل ما سبق، وأن تتعلمي فيه أن تمنحي نفسكِ من الرحمة ما تمنحينه للآخرين.<br><br>
+                        كل عام وأنتِ بخير يا رحمة، ويا أجمل حكاية لم تُكتب فصولها بعد. 📖✨
+                    </p>
+
+                    <button class="btn-custom" onclick="nextPage(event)" style="margin-top: 15px;">انتقل للتهاني 💌</button>
+                    <div class="ornament">🎂</div>
+                </div>
+                <div class="back">
+                    <div class="ornament">💌 🎙️ 💌</div>
+                    <h2 class="page-title">شاركنا تهنئتك</h2>
+                    
+                    <div class="messages-section">
+                        <p style="font-family: 'Cairo'; font-size: 0.85rem; color: #475569;">اكتب رسالة تهنئة لرحمة أو سجل رسالة صوتية:</p>
+                        
+                        <input type="text" id="sender-name" class="msg-input" placeholder="اسمك..." style="font-size:0.85rem;">
+                        <textarea id="sender-text" class="msg-input" rows="2" placeholder="اكتب تهنئتك هنا..." style="font-size:0.85rem;"></textarea>
+                        
+                        <div class="voice-controls">
+                            <button class="btn-custom" style="padding: 6px 14px; font-size: 0.8rem;" onclick="recordVoice()" id="record-btn">
+                                <i class="fa-solid fa-microphone"></i> تسجيل صوتي
+                            </button>
+                            <button class="btn-custom" style="padding: 6px 14px; font-size: 0.8rem;" onclick="addMessage()">إرسال 💌</button>
+                        </div>
+
+                        <div class="msg-list" id="msg-list">
+                            <div class="msg-item"><b>صديق:</b> كل عام وأنتِ المبدعة دائماً يا رحمة! ✨</div>
+                        </div>
+                    </div>
+                    <div class="ornament">✨ 📖 ✨</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Quick Navigation Bar -->
+    <div class="controls-bar">
+        <button class="btn-custom" onclick="prevPageManual()"><i class="fa-solid fa-arrow-right"></i> الصفحة السابقة</button>
+        <button class="btn-custom" onclick="nextPageManual()">الصفحة التالية <i class="fa-solid fa-arrow-left"></i></button>
+    </div>
+
+    <script>
+        let currentPage = 0;
+        const totalPages = 3;
+
+        function flipPage(pageNum) {
+            const page = document.getElementById(`p${pageNum}`);
+            if (pageNum === currentPage + 1) {
+                page.classList.add('flipped');
+                currentPage = pageNum;
+                setTimeout(() => { page.style.zIndex = pageNum; }, 600);
+            } else if (pageNum === currentPage) {
+                page.classList.remove('flipped');
+                currentPage = pageNum - 1;
+                page.style.zIndex = totalPages - pageNum + 1;
+            }
+        }
+
+        function pageClick(pageNum, event) {
+            if(event.target.tagName === 'BUTTON' || event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA' || event.target.tagName === 'SELECT' || event.target.closest('.poem-container')) {
+                return;
+            }
+            flipPage(pageNum);
+        }
+
+        function nextPage(e) {
+            if(e) e.stopPropagation();
+            if (currentPage < totalPages) {
+                flipPage(currentPage + 1);
+            }
+        }
+
+        function nextPageManual() {
+            if (currentPage < totalPages) {
+                flipPage(currentPage + 1);
+            }
+        }
+
+        function prevPageManual() {
+            if (currentPage > 0) {
+                flipPage(currentPage);
+            }
+        }
+
+        function togglePoem(e) {
+            e.stopPropagation();
+            const poemBox = document.getElementById('poem-box');
+            if (poemBox.style.display === 'block') {
+                poemBox.style.display = 'none';
+            } else {
+                poemBox.style.display = 'block';
+            }
+        }
+
+        function moveNoBtn() {
+            const btnNo = document.getElementById('btn-no');
+            const x = Math.floor(Math.random() * 180) - 90;
+            const y = Math.floor(Math.random() * 180) - 90;
+            btnNo.style.transform = `translate(${x}px, ${y}px)`;
+        }
+
+        const audio = document.getElementById('audio-player');
+        const playBtn = document.getElementById('play-btn');
+        const songSelect = document.getElementById('song-select');
+        const songTitle = document.getElementById('song-title');
+
+        const songs = {
+            'path': { title: 'عزف عود هادئ', src: 'https://upload.wikimedia.org/wikipedia/commons/e/eb/Arabic_Oud_Music_Sample.ogg' },
+            'give_me': { title: 'Give Me a Sign', src: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3' },
+            'russian': { title: 'Катюша (Katyusha)', src: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3' },
+            'italian': { title: 'Bella Ciao', src: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3' },
+            'arabic_classic': { title: 'موسيقى هادئة', src: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3' }
+        };
+
+        function togglePlay() {
+            if (audio.paused) {
+                audio.play();
+                playBtn.className = "fa-solid fa-pause";
+            } else {
+                audio.pause();
+                playBtn.className = "fa-solid fa-play";
+            }
+        }
+
+        function changeSong() {
+            const selected = songSelect.value;
+            audio.src = songs[selected].src;
+            songTitle.textContent = songs[selected].title;
+            audio.play();
+            playBtn.className = "fa-solid fa-pause";
+        }
+
+        function addMessage() {
+            const name = document.getElementById('sender-name').value.trim() || 'فاعل خير';
+            const text = document.getElementById('sender-text').value.trim();
+            if(text) {
+                const msgList = document.getElementById('msg-list');
+                const newMsg = document.createElement('div');
+                newMsg.className = 'msg-item';
+                newMsg.innerHTML = `<b>${name}:</b> ${text}`;
+                msgList.prepend(newMsg);
+                document.getElementById('sender-text').value = '';
+            }
+        }
+
+        let isRecording = false;
+        function recordVoice() {
+            const recordBtn = document.getElementById('record-btn');
+            if(!isRecording) {
+                isRecording = true;
+                recordBtn.innerHTML = `<i class="fa-solid fa-stop" style="color:red;"></i> جاري التسجيل...`;
+            } else {
+                isRecording = false;
+                recordBtn.innerHTML = `<i class="fa-solid fa-microphone"></i> تسجيل صوتي`;
+                const msgList = document.getElementById('msg-list');
+                const newMsg = document.createElement('div');
+                newMsg.className = 'msg-item';
+                newMsg.innerHTML = `<b>رسالة صوتية:</b> 🎤 [تم تسجيل مقطع صوتي بنجاح]`;
+                msgList.prepend(newMsg);
+            }
+        }
+    </script>
+</body>
+</html>
